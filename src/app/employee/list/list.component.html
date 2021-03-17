@@ -1,0 +1,41 @@
+<!-- <div style="margin-top: 10px;"> -->
+<div>
+    <button class="btn btn-success btn-sm" (click)="addEmployee()">Add</button>
+    <button class="btn btn-danger btn-sm button-align" (click)="refreshEmployeeList()"
+        [disabled]="employees?.length">Refresh</button>
+
+    <div *ngIf="!(employees?.length > 0) && isLoaded" style="margin-top: 10px;">
+        <h4 style="color:red;"> No records found </h4>
+    </div>
+    <div *ngIf="(employees?.length > 0)" style="margin-top: 10px;">
+
+        <table class="table table-sm table-bordered table-hover">
+            <tr>
+                <th>Full Name</th>
+                <th>Date of Birth</th>
+                <th>Mobile Number</th>
+                <th>Email</th>
+                <th>Date of Birth</th>
+                <th>Age</th>
+                <th>Action</th>
+            </tr>
+
+
+            <tr *ngFor="let employee of employees;index as i" [class]="geClass(i)">
+                <td>{{employee | fullname}}</td>
+                <td>{{employee.dob | date:short}}</td>
+                <td>{{employee.mobileNumber}}</td>
+                <td>{{employee.email}}</td>
+                <td>{{employee.dob | date:short}}</td>
+                <td>{{employee.dob | age}}</td>
+                <td style="width: 170px;">
+                    <button class="btn btn-info btn-sm" (click)="viewEmployee(employee)">View</button>
+                    <button class="btn btn-primary btn-sm button-align" (click)="editEmployee(employee)">Edit</button>
+                    <button class="btn btn-danger btn-sm button-align"
+                        (click)="deleteEmployee(employee.id)">Delete</button>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+</div>

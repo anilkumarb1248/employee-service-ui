@@ -1,0 +1,64 @@
+
+<div class="row">
+    <div class="col-3">
+        <h4>View Employee Details</h4>
+    </div>
+    <div class="col">
+        <button type="button" class="btn btn-dark btn-sm" (click)="navigateToEmployeeList()">Back to List</button>
+    </div>
+</div>
+
+<div *ngIf="isLoaded" style="width: 500px;">
+    <h5 style="color:blue;"> {{employee | fullname}} Details:</h5>
+
+    <table class="table table-bordered table-sm">
+        <tr class="table-info">
+            <td><b>FirstName </b></td>
+            <td>{{employee.firstName}}</td>
+        </tr>
+        <tr class="table-info">
+            <td><b>Middle Name </b></td>
+            <td>{{employee.middleName}}</td>
+        </tr>
+        <tr class="table-info">
+            <td><b>Last Name </b></td>
+            <td>{{employee.lastName}}</td>
+        </tr>
+        <tr class="table-info">
+            <td><b>Role </b></td>
+            <td>{{employee.role}}</td>
+        </tr>
+        <tr class="table-info">
+            <td><b>Salary </b></td>
+            <td>{{employee.salary}}</td>
+        </tr>
+        <tr class="table-info">
+            <td><b>Date of Birth </b></td>
+            <td>{{employee.dob | date:short}}</td>
+        </tr>
+        <tr class="table-info">
+            <td><b>Gender </b></td>
+            <td>{{employee.gender}}</td>
+        </tr>
+        <tr class="table-info">
+            <td><b>Mobile Number </b></td>
+            <td>{{employee.mobileNumber}}</td>
+        </tr>
+        <tr class="table-info">
+            <td><b>Email </b></td>
+            <td>{{employee.email}}</td>
+        </tr>
+        <tr class="table-info">
+            <td><b>Address </b></td>
+            <td>{{employee.address}}</td>
+        </tr>
+        <tr class="table-info">
+            <td><b>PinCode </b></td>
+            <td>{{employee.pinCode}}</td>
+        </tr>
+        <tr class="table-info">
+            <td><b>Marital Staus </b></td>
+            <td>{{employee.maritalStaus}}</td>
+        </tr>
+    </table>
+</div>

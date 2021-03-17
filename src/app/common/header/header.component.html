@@ -1,0 +1,15 @@
+<div class="bg-dark " style="height: 40px;position: fixed;width:99%;z-index: 100;">
+    <div class="float-left">
+        <nav class="nav nav-tabs">
+            <a class="nav-link text-light" routerLinkActive="activebutton" routerLink="/employee/list" active>Employees</a>
+            <a class="nav-link text-light" routerLinkActive="activebutton" routerLink="/user">Users</a>
+            <!-- <a class="nav-link text-light" routerLinkActive="activebutton" routerLink="/settings">User Settings</a> -->
+        </nav>
+    </div>
+    <div class="float-right" style="margin-right: 20px;">
+        <nav class="nav nav-tabs">
+            <a class="nav-link text-info font-weight-bold" [hidden]="isUserLoggedIn"  routerLink="/login">Login</a>
+            <a class="nav-link text-warning font-weight-bold" [hidden]="!isUserLoggedIn" routerLink="/login/logout">Logout</a>
+        </nav> 
+    </div>
+</div>
