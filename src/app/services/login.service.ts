@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { AppConstants } from '../app-constants';
 import { LoginUser } from '../model/login-user';
 import { ResponseStatus } from '../model/response-status';
 import { User } from '../model/user';
@@ -14,10 +15,11 @@ export class LoginService {
   userLoggedIn: boolean = false;
   userLoggedInObservable: Observable<boolean>;
 
-  private baseUrl: string = "http://localhost:2021/BakService/login/";
+  // private baseUrl: string = "http://localhost:2021/BakService/login/";
+  private loginUrl: string;
 
-  constructor(private http: HttpClient) {
-    console.log("LoginService object is created");
+  constructor(private http: HttpClient, private appConstants: AppConstants) {
+    this.loginUrl = appConstants.BASE_URL + "login/"
   }
 
   setLoggedInUser(user: User): void {
@@ -47,7 +49,7 @@ export class LoginService {
   }
 
   authenticateUser(loginUser: LoginUser): Observable<ResponseStatus> {
-    return this.http.post<ResponseStatus>(this.baseUrl + "authenticate", loginUser);
+    return this.http.post<ResponseStatus>(this.loginUrl + "authenticate", loginUser);
 
   }
 }

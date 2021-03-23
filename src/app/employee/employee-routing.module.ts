@@ -13,8 +13,8 @@ const routes: Routes = [
       { path: "list", component: ListComponent },
       { path: "add", component: AddComponent},
       { path: "view/:id", component: ViewComponent },
-      { path: "edit/:id", component: EditComponent }
-
+      { path: "edit/:id", component: EditComponent },
+      { path: '**', component:ListComponent}
     ]
   },
   { path: '**', component: PageNotFoundComponent }

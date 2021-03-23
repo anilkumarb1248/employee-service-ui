@@ -1,0 +1,62 @@
+<div class="container">
+    <div class="row">
+        <div class="col-2">
+            <h4>Edit User</h4>
+        </div>
+        <div class="col">
+            <button type="button" class="btn btn-dark btn-sm" (click)="navigateToUserList()">Back to List</button>
+        </div>
+    </div>
+</div>
+<div *ngIf="isLoaded" class="container" style="border:solid 1px black;">
+    <form [formGroup]="userForm" (ngSubmit)="updateUser()">
+        <div class="form-group">
+            <label for="fullNameInput">Full Name </label>
+            <input type="text" class="form-control" id="fullNameInput" placeholder="Enter Full Name"
+                formControlName="fullName">
+        </div>
+        <div class="form-group">
+            <label for="userIdInput">User Id </label>
+            <input type="text" class="form-control" id="userIdInput" placeholder="Enter User Id"
+                formControlName="userId">
+        </div>
+        <div class="form-group">
+            <label for="passwordInput">Password </label>
+            <input type="password" class="form-control" id="passwordInput" placeholder="Enter Password"
+                formControlName="password">
+        </div>
+
+        <div class="form-group">
+            <label for="confirmPasswordInput">Confirm Password </label>
+            <input type="password" class="form-control" id="confirmPasswordInput" placeholder="Re Enter Password"
+                formControlName="confirmPassword">
+        </div>
+
+        <div class="form-group">
+            <label for="mobileNumberInput">Mobile Number </label>
+            <input type="text" class="form-control" id="mobileNumberInput" placeholder="Enter Mobile Number"
+                formControlName="mobileNumber">
+        </div>
+        <div class="form-group">
+            <label for="emailInput">Email </label>
+            <input type="text" class="form-control" id="emailInput" placeholder="Enter Email" formControlName="email">
+        </div>
+
+
+        <div class="form-group">
+            <label for="accessTypesInput">Access Types</label>
+            <select class="form-control" id="accessTypesInput" formControlName="accessTypes" multiple="multiple">
+                <option value="" disabled selected hidden> -- Select Access Type -- </option>
+                <option value="Admin">Admin</option>
+                <option value="Add">Add</option>
+                <option value="View">View</option>
+                <option value="Edit">Edit</option>
+                <option value="Delete">Delete</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary" [disabled]="!userForm.valid">Submit</button>
+        <button type="button" class="btn btn-warning button-align" (click)="resetForm()">Reset</button>
+        <button type="button" class="btn btn-secondary button-align" (click)="navigateToUserList()">Cancel</button>
+    </form>
+</div>

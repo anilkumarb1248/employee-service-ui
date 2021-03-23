@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Employee } from 'src/app/model/employee';
-import { EmployeeService } from 'src/app/services/employee.service';
+import { User } from 'src/app/model/user';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-view',
@@ -9,14 +9,14 @@ import { EmployeeService } from 'src/app/services/employee.service';
   styleUrls: ['./view.component.css']
 })
 export class ViewComponent implements OnInit {
- 
+
   id: number;
-  employee: Employee;
+  user: User;
   isLoaded: boolean = false;
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private service: EmployeeService,
+    private service: UserService,
     private router: Router
   ) {
     this.activatedRoute.params.subscribe(data => {
@@ -25,28 +25,28 @@ export class ViewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loadEmployeeDetails(this.id);
+    this.loadUserDetails(this.id);
   }
 
-  loadEmployeeDetails(id: number) {
+  loadUserDetails(id: number) {
     if (id) {
-      this.service.getEmployee(id).subscribe(
+      this.service.getUser(id).subscribe(
         data => {
-          this.employee = data;
+          this.user = data;
           this.isLoaded = true;
           console.log(JSON.stringify(data));
         },
         error => {
+          this.isLoaded = true;
           console.log(error);
         }
       );
     } else {
-      console.log("Employee id is required")
+      console.log("User id is required")
     }
   }
 
-  navigateToEmployeeList() {
-    this.router.navigateByUrl("employee/list");
+  navigateToUserList() {
+    this.router.navigateByUrl("user/list");
   }
-
 }

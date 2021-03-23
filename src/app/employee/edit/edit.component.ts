@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Employee } from 'src/app/model/employee';
 import { EmployeeService } from 'src/app/services/employee.service';
-
+ 
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.component.html',
@@ -85,7 +85,6 @@ export class EditComponent implements OnInit {
   }
 
   resetForm(){
-    // this.employeeForm.reset();
     this.employeeForm.setValue(this.employee);
   }
 

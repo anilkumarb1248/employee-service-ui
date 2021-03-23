@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
     this.loginForm = this.formBuilder.group({
       userId: ["", Validators.required],
       password: ["", Validators.required],
-      keepLogin: [false],
+      keepLogin: [true],
     });
     this.isLoaded = true;
   }

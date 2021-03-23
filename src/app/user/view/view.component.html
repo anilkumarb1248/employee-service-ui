@@ -1,0 +1,36 @@
+
+<div class="row">
+    <div class="col-3">
+        <h4>View User Details</h4>
+    </div>
+    <div class="col">
+        <button type="button" class="btn btn-dark btn-sm" (click)="navigateToUserList()">Back to List</button>
+    </div>
+</div>
+
+<div *ngIf="isLoaded" style="width: 500px;">
+    <h5 style="color:blue;"> {{user.fullName}} Details:</h5>
+
+    <table class="table table-bordered table-sm">
+        <tr class="table-info">
+            <td><b>Full Name </b></td>
+            <td>{{user.fullName}}</td>
+        </tr>
+        <tr class="table-info">
+            <td><b>User Id </b></td>
+            <td>{{user.userId}}</td>
+        </tr>
+        <tr class="table-info">
+            <td><b>Email </b></td>
+            <td>{{user.email}}</td>
+        </tr>
+        <tr class="table-info">
+            <td><b>Mobile Number </b></td>
+            <td>{{user.mobileNumber}}</td>
+        </tr>
+        <tr class="table-info">
+            <td><b>Access Types </b></td>
+            <td>{{user.accessTypes}}</td>
+        </tr>
+    </table>
+</div>

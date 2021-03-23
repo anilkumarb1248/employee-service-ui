@@ -15,7 +15,6 @@ export class AppComponent implements OnInit {
 
   constructor(private loginService: LoginService, private userService: UserService) {
     if (localStorage.getItem('loginData')) {
-      //  const loginData = JSON.parse(localStorage.getItem('loginData'));
       const userData = JSON.parse(localStorage.getItem('userData'));
       this.loginService.setLoggedInUser(userData);
     }
