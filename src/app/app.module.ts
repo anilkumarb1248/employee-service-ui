@@ -9,6 +9,7 @@ import { PageNotFoundComponent } from './common/page-not-found/page-not-found.co
 import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './common/header/header.component';
 import { LoggingInterceptor } from './interceptors/logging.interceptor';
+import { InteractionModule } from './components-interaction/interaction.module';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { LoggingInterceptor } from './interceptors/logging.interceptor';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    InteractionModule
   ],
   providers:[
     {provide:HTTP_INTERCEPTORS, useClass:LoggingInterceptor, multi:true}

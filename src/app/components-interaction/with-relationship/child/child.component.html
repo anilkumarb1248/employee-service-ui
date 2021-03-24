@@ -1,0 +1,12 @@
+<h6><u>Child Component</u></h6>
+
+<b>Name: </b> {{name}}<br>
+<small class="text-primary">Getting the name from parent using @Input()</small>
+
+<br>
+<br>
+<b>Enter Name: </b> <input type="text" [(ngModel)]="name"><br>
+<small class="text-danger">Whenever we change the property in Child it wont reflect in parent</small>
+
+<br>
+<button class="btn btn-primary btn-sm" (click)="emitName()">Send Name to Parent Using Emmiter</button>

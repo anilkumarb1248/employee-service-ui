@@ -1,0 +1,8 @@
+.row-border{
+    border:2px solid black;
+}
+
+.col-border{
+    border:1px solid violet;
+    margin: 1%;
+}

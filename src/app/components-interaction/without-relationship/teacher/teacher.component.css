@@ -1,0 +1,8 @@
+.in-message{
+    color:blue;
+}
+.out-message{
+    margin-left: 10px;
+    color:tomato;
+    background-color: lightgray;
+}
