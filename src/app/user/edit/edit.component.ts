@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NotifyType, Notification } from 'src/app/common/notification';
+import { NotificationService } from 'src/app/common/services/notification.service';
 import { User } from 'src/app/model/user';
-import { EmployeeService } from 'src/app/services/employee.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -19,10 +20,11 @@ export class EditComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private service: UserService, 
-    private formBuilder: FormBuilder, 
-    private router: Router
-    ) {
+    private service: UserService,
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private notificationService: NotificationService
+  ) {
     this.activatedRoute.params.subscribe(data => {
       this.id = data.id;
     });
@@ -67,16 +69,18 @@ export class EditComponent implements OnInit {
   updateUser() {
     this.service.updateUser(this.userForm.value).subscribe(
       data => {
-        if(data.statusCode == "200"){
-          alert("Updated");
+        if (data.statusCode == "200") {
+          this.notificationService.notify(new Notification(data.message, NotifyType.SUCCESS));
           this.navigateToUserList();
-        }else{
-          console.warn(data.errorMessage);
+        } else if (data.statusCode == "204") { // 204 means No-content
+          this.notificationService.notify(new Notification(data.errorMessage, NotifyType.WARNING));
+        } else {
+          this.notificationService.notify(new Notification(data.errorMessage, NotifyType.ERROR));
+          this.navigateToUserList();
         }
-        
       },
       error => {
-        console.warn("Error occured while updating the user");
+        console.warn("Error occured while updating the user: ", error);
       }
     );
     console.log(JSON.stringify(this.userForm.value));
@@ -86,7 +90,7 @@ export class EditComponent implements OnInit {
     this.router.navigateByUrl("user/list");
   }
 
-  resetForm(){
+  resetForm() {
     this.userForm.patchValue(this.user);
   }
 }

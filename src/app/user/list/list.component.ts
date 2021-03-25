@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NotifyType, Notification } from 'src/app/common/notification';
+import { NotificationService } from 'src/app/common/services/notification.service';
 import { User } from 'src/app/model/user';
 import { UserService } from 'src/app/services/user.service';
 
@@ -10,22 +12,26 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class ListComponent implements OnInit {
 
-  users:User[];
+  users: User[];
   isLoaded: boolean = false;
 
-  constructor(private service: UserService, private router: Router) { }
+  constructor(
+    private service: UserService,
+    private router: Router,
+    private notificationService: NotificationService
+  ) { }
 
   ngOnInit(): void {
     this.loadUsers();
   }
 
-  loadUsers(){
+  loadUsers() {
     this.service.getUserList().subscribe(
-      data=>{
+      data => {
         this.users = data;
         this.isLoaded = true;
       },
-      error=>{
+      error => {
         this.isLoaded = true;
         console.log("Error occured while loading users: " + error);
       }
@@ -47,15 +53,17 @@ export class ListComponent implements OnInit {
   deleteUser(id: number): void {
     this.service.deleteUser(id).subscribe(
       (data) => {
-        if (data.statusCode == '200') {
+        if (data.statusCode == "200") {
+          this.notificationService.notify(new Notification(data.message, NotifyType.SUCCESS));
           this.loadUsers();
-          console.log(data.message);
+        } else if (data.statusCode == "204") { // 204 means No-content
+          this.notificationService.notify(new Notification(data.errorMessage, NotifyType.WARNING));
         } else {
-          console.log(data.errorMessage);
+          this.notificationService.notify(new Notification(data.errorMessage, NotifyType.ERROR));
         }
       },
       (error) => {
-        console.log("Error occured while deleting the employee");
+        console.log("Error occured while deleting the employee: ", error);
       }
     );
   }

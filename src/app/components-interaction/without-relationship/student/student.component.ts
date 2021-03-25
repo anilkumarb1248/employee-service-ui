@@ -37,6 +37,7 @@ export class StudentComponent implements OnInit {
       newMessage.time = new Date();
       this.messageList.push(newMessage);
       this.interactionService.sendStudentMessage(this.message);
+      this.message = "";
     }
   }
 

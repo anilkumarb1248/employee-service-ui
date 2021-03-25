@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NotifyType, Notification } from 'src/app/common/notification';
+import { NotificationService } from 'src/app/common/services/notification.service';
 import { Employee } from 'src/app/model/employee';
 import { EmployeeService } from 'src/app/services/employee.service';
 
@@ -13,7 +15,11 @@ export class ListComponent implements OnInit {
   employees: Employee[];
   isLoaded: boolean = false;
 
-  constructor(private service: EmployeeService, private router: Router) { }
+  constructor(
+    private service: EmployeeService,
+    private router: Router,
+    private notificationService: NotificationService
+  ) { }
 
   ngOnInit(): void {
     this.loadEmployees();
@@ -47,15 +53,17 @@ export class ListComponent implements OnInit {
   deleteEmployee(id: number): void {
     this.service.deleteEmployee(id).subscribe(
       (data) => {
-        if (data.statusCode == '200') {
+        if (data.statusCode == "200") {
+          this.notificationService.notify(new Notification(data.message, NotifyType.SUCCESS));
           this.loadEmployees();
-          console.log(data.message);
+        } else if (data.statusCode == "204") { // 204 means No-content
+          this.notificationService.notify(new Notification(data.errorMessage, NotifyType.WARNING));
         } else {
-          console.log(data.errorMessage);
+          this.notificationService.notify(new Notification(data.errorMessage, NotifyType.ERROR));
         }
       },
       (error) => {
-        console.log("Error occured while deleting the employee");
+        console.log("Error occured while deleting the employee: " + error);
       }
     );
   }
@@ -63,8 +71,12 @@ export class ListComponent implements OnInit {
   refreshEmployeeList() {
     this.service.refreshEmployeeList().subscribe(
       data => {
-        console.log(data);
-        this.loadEmployees();
+        if (data.statusCode == "200") {
+          this.notificationService.notify(new Notification(data.message, NotifyType.SUCCESS));
+          this.loadEmployees();
+        } else {
+          this.notificationService.notify(new Notification(data.errorMessage, NotifyType.ERROR));
+        }
       }
     );
 
