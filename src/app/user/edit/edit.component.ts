@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NotifyType, Notification } from 'src/app/common/notification';
-import { NotificationService } from 'src/app/common/services/notification.service';
+import { NotifyType} from 'src/app/common/notification';
+import { HelperService } from 'src/app/common/services/helper.service';
 import { User } from 'src/app/model/user';
 import { UserService } from 'src/app/services/user.service';
 
@@ -23,7 +23,8 @@ export class EditComponent implements OnInit {
     private service: UserService,
     private formBuilder: FormBuilder,
     private router: Router,
-    private notificationService: NotificationService
+    private elementRef: ElementRef,
+    private helperService: HelperService
   ) {
     this.activatedRoute.params.subscribe(data => {
       this.id = data.id;
@@ -57,11 +58,11 @@ export class EditComponent implements OnInit {
     this.userForm = this.formBuilder.group({
       id: [this.user.id],
       userId: [this.user.userId, Validators.required],
-      fullName: [this.user.fullName, Validators.required],
+      name: [this.user.name, Validators.required],
       password: [this.user.password, Validators.required],
       confirmPassword: [this.user.password, Validators.required],
-      email: [this.user.email, Validators.required],
-      mobileNumber: [this.user.mobileNumber, Validators.required],
+      email: [this.user.email],
+      mobileNumber: [this.user.mobileNumber],
       accessTypes: [this.user.accessTypes]
     });
   }
@@ -70,12 +71,18 @@ export class EditComponent implements OnInit {
     this.service.updateUser(this.userForm.value).subscribe(
       data => {
         if (data.statusCode == "200") {
-          this.notificationService.notify(new Notification(data.message, NotifyType.SUCCESS));
+          this.helperService.createNotification(data.message, NotifyType.SUCCESS);
           this.navigateToUserList();
+
         } else if (data.statusCode == "204") { // 204 means No-content
-          this.notificationService.notify(new Notification(data.errorMessage, NotifyType.WARNING));
+          this.helperService.createNotification(data.errorMessage, NotifyType.WARNING);
+          this.navigateToUserList();
+        } else if (data.statusCode == "409") {
+          this.helperService.createNotification(data.errorMessage, NotifyType.WARNING);
+          this.helperService.focusInvalidControl(this.userForm,'userId',this.elementRef);
+
         } else {
-          this.notificationService.notify(new Notification(data.errorMessage, NotifyType.ERROR));
+          this.helperService.createNotification(data.errorMessage, NotifyType.ERROR);
           this.navigateToUserList();
         }
       },

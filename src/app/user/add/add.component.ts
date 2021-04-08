@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { NotifyType, Notification } from 'src/app/common/notification';
-import { NotificationService } from 'src/app/common/services/notification.service';
+import { NotifyType } from 'src/app/common/notification';
+import { HelperService } from 'src/app/common/services/helper.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -18,7 +18,8 @@ export class AddComponent implements OnInit {
     private service: UserService,
     private formBuilder: FormBuilder,
     private router: Router,
-    private notificationService: NotificationService
+    private elementRef: ElementRef,
+    private helperService: HelperService
   ) {
     this.createUserForm();
   }
@@ -30,11 +31,11 @@ export class AddComponent implements OnInit {
   createUserForm() {
     this.userForm = this.formBuilder.group({
       userId: ["", Validators.required],
-      fullName: ["", Validators.required],
+      name: ["", Validators.required],
       password: ["", Validators.required],
       confirmPassword: ["", Validators.required],
-      email: ["", Validators.required],
-      mobileNumber: ["", Validators.required],
+      email: [""],
+      mobileNumber: [""],
       accessTypes: []
     });
   }
@@ -43,13 +44,15 @@ export class AddComponent implements OnInit {
     this.service.addUser(this.userForm.value).subscribe(
       data => {
         if (data.statusCode == "201") {
-          this.notificationService.notify(new Notification(data.message, NotifyType.SUCCESS));
+          this.helperService.createNotification(data.message, NotifyType.SUCCESS);
           this.navigateToUserList();
+          
         } else if (data.statusCode == "409") {
-          this.notificationService.notify(new Notification(data.errorMessage, NotifyType.WARNING));
-          // Let the user modify the duplicate entry
+          this.helperService.createNotification(data.errorMessage, NotifyType.WARNING);
+          this.helperService.focusInvalidControl(this.userForm,'userId',this.elementRef);
+
         } else {
-          this.notificationService.notify(new Notification(data.errorMessage, NotifyType.ERROR));
+          this.helperService.createNotification(data.errorMessage, NotifyType.ERROR);
           this.navigateToUserList();
         }
       },
@@ -57,7 +60,6 @@ export class AddComponent implements OnInit {
         console.log("Error occured while adding the user: ", error);
       }
     );
-    console.log(JSON.stringify(this.userForm.value));
   }
 
   navigateToUserList() {

@@ -12,13 +12,15 @@ import { HeaderComponent } from './common/header/header.component';
 import { LoggingInterceptor } from './interceptors/logging.interceptor';
 import { InteractionModule } from './components-interaction/interaction.module';
 import { ToastrModule } from 'ngx-toastr';
+import { FooterComponent } from './common/footer/footer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PageNotFoundComponent,
     HomeComponent,
-    HeaderComponent
+    HeaderComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
@@ -29,7 +31,7 @@ import { ToastrModule } from 'ngx-toastr';
     InteractionModule,
     BrowserAnimationsModule, // required animations module for Toastr
     ToastrModule.forRoot({
-      timeOut:1000,
+      timeOut:5000,
       positionClass:'toast-top-right',
       preventDuplicates:false
     }) // ToastrModule added

@@ -11,7 +11,6 @@ import { AppConstants } from '../app-constants';
 })
 export class EmployeeService {
 
-  // private baseUrl: string = "http://localhost:2021/BakService/employee/";
   private empUrl: string;
 
   constructor(private http: HttpClient, private appConstants: AppConstants) {
@@ -19,7 +18,7 @@ export class EmployeeService {
   }
 
   getEmployeeList(): Observable<Employee[]> {
-    return this.http.get<Employee[]>(this.empUrl + "getEmployeeList");
+    return this.http.get<Employee[]>(this.empUrl + "employees");
   }
 
   /* If it fails first time, it will retry 3 times as mentioned in the pipe retry() method*/
@@ -29,24 +28,20 @@ export class EmployeeService {
   // }
 
   getEmployee(id: number): Observable<Employee> {
-    return this.http.get<Employee>(this.empUrl + "getEmployee/" + id);
+    return this.http.get<Employee>(this.empUrl + "get/" + id);
   }
 
   addEmployee(employee: Employee): Observable<ResponseStatus> {
-    return this.http.post<ResponseStatus>(this.empUrl + "addEmployee", employee);
+    return this.http.post<ResponseStatus>(this.empUrl + "add", employee);
 
   }
 
   updateEmployee(employee: Employee): Observable<ResponseStatus> {
-    return this.http.put<ResponseStatus>(this.empUrl + "updateEmployee", employee);
+    return this.http.put<ResponseStatus>(this.empUrl + "update", employee);
   }
 
   deleteEmployee(id: number): Observable<ResponseStatus> {
-    return this.http.delete<ResponseStatus>(this.empUrl + "deleteEmployee/" + id);
-  }
-
-  refreshEmployeeList(): Observable<ResponseStatus> {
-    return this.http.get<ResponseStatus>(this.empUrl + "refreshEmployeeList");
+    return this.http.delete<ResponseStatus>(this.empUrl + "delete/" + id);
   }
 
 }

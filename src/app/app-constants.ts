@@ -4,5 +4,5 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class AppConstants {
-    BASE_URL: string  = "http://localhost:2021/BakService/";
+    BASE_URL: string  = "http://localhost:2021/EmployeeManagement/";
 }

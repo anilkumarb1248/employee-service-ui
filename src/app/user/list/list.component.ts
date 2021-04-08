@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { NotifyType, Notification } from 'src/app/common/notification';
-import { NotificationService } from 'src/app/common/services/notification.service';
+import { NotifyType} from 'src/app/common/notification';
+import { HelperService } from 'src/app/common/services/helper.service';
 import { User } from 'src/app/model/user';
 import { UserService } from 'src/app/services/user.service';
 
@@ -18,7 +18,7 @@ export class ListComponent implements OnInit {
   constructor(
     private service: UserService,
     private router: Router,
-    private notificationService: NotificationService
+    private helperService: HelperService
   ) { }
 
   ngOnInit(): void {
@@ -54,28 +54,18 @@ export class ListComponent implements OnInit {
     this.service.deleteUser(id).subscribe(
       (data) => {
         if (data.statusCode == "200") {
-          this.notificationService.notify(new Notification(data.message, NotifyType.SUCCESS));
+          this.helperService.createNotification(data.message, NotifyType.SUCCESS);
           this.loadUsers();
         } else if (data.statusCode == "204") { // 204 means No-content
-          this.notificationService.notify(new Notification(data.errorMessage, NotifyType.WARNING));
+          this.helperService.createNotification(data.errorMessage, NotifyType.WARNING);
         } else {
-          this.notificationService.notify(new Notification(data.errorMessage, NotifyType.ERROR));
+          this.helperService.createNotification(data.errorMessage, NotifyType.ERROR);
         }
       },
       (error) => {
         console.log("Error occured while deleting the employee: ", error);
       }
     );
-  }
-
-  refreshUserList() {
-    this.service.refreshUserList().subscribe(
-      data => {
-        console.log(data);
-        this.loadUsers();
-      }
-    );
-
   }
 
   isListEmpty(): boolean {

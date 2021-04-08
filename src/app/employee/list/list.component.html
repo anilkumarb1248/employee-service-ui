@@ -1,8 +1,6 @@
 <!-- <div style="margin-top: 10px;"> -->
 <div>
     <button class="btn btn-success btn-sm" (click)="addEmployee()">Add</button>
-    <button class="btn btn-danger btn-sm button-align" (click)="refreshEmployeeList()"
-        [disabled]="employees?.length">Refresh</button>
 
     <div *ngIf="!(employees?.length > 0) && isLoaded" style="margin-top: 10px;">
         <h4 style="color:red;"> No records found </h4>

@@ -15,7 +15,7 @@ export class LoggingInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const loggedInUser = this.loginService.getLoggedInUser();
-    const name = loggedInUser?loggedInUser.fullName:"";
+    const name = loggedInUser?loggedInUser.name:"";
     console.log("Request made to URL: " + request.url + ' by ' + name);
     
     return next.handle(request);

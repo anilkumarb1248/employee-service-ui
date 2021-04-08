@@ -9,12 +9,12 @@
 </div>
 
 <div *ngIf="isLoaded" style="width: 500px;">
-    <h5 style="color:blue;"> {{user.fullName}} Details:</h5>
+    <h5 style="color:blue;"> {{user.name}} Details:</h5>
 
     <table class="table table-bordered table-sm">
         <tr class="table-info">
-            <td><b>Full Name </b></td>
-            <td>{{user.fullName}}</td>
+            <td><b>Name </b></td>
+            <td>{{user.name}}</td>
         </tr>
         <tr class="table-info">
             <td><b>User Id </b></td>
@@ -30,7 +30,7 @@
         </tr>
         <tr class="table-info">
             <td><b>Access Types </b></td>
-            <td>{{user.accessTypes}}</td>
+            <td>{{user.accessTypes | accessTypes}}</td>
         </tr>
     </table>
 </div>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Employee } from 'src/app/model/employee';
+import { Employee, Gender, MaritalStatus, Role } from 'src/app/model/employee';
 import { EmployeeService } from 'src/app/services/employee.service';
 
 @Component({
@@ -13,6 +13,11 @@ export class ViewComponent implements OnInit {
   id: number;
   employee: Employee;
   isLoaded: boolean = false;
+
+  public gender: typeof Gender = Gender;
+  public role: typeof Role = Role;
+  public maritalStatus : typeof MaritalStatus = MaritalStatus;
+  
 
   constructor(
     private activatedRoute: ActivatedRoute,

@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { AppConstants } from 'src/app/app-constants';
 import { LoginService } from 'src/app/services/login.service';
 
 @Component({
@@ -10,7 +11,7 @@ export class HeaderComponent implements OnInit {
 
   isUserLoggedIn: boolean = false;
 
-  constructor(private loginService: LoginService) {
+  constructor(private loginService: LoginService, private appConstants: AppConstants) {
     this.isUserLoggedIn = this.loginService.isUserLoggedIn();
     this.loginService.isUserLoggedInObservable().subscribe(
       data => {
@@ -22,6 +23,10 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  openSwaggerAPI(){
+    window.open(this.appConstants.BASE_URL+ "swagger-ui.html", "_blank");
   }
 
 }

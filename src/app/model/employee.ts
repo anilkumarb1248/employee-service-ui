@@ -4,34 +4,33 @@ export class Employee {
     firstName: string;
     middleName: string;
     lastName: string;
-    role:Role;
-    salary:number;
+    role: Role;
+    salary: number;
     dob: Date;
     gender: Gender;
-    mobileNumber: number;
+    mobileNumber: string;
     email: string;
     address: string;
-    pinCode: number;
-    maritalStaus: MaritalStatus;
+    maritalStatus: MaritalStatus;
 
-    constructor(){}
+    constructor() { }
 
 }
 
-export enum Role{
-	SE,
-	SSE,
-	TA,
-	LEAD,
-	MANAGER,
-	CEO
+export enum Role {
+    SE = "Software Engineer",
+    SSE = "Senior Software Engineer",
+    TA = "Technology Analyst",
+    LEAD = "Lead",
+    MANAGER = "Manager",
+    CEO = "CEO",
 }
 export enum Gender {
-    Male,
-    Female
+    MALE = "Male",
+    FEMALE = "Female"
 }
 
 export enum MaritalStatus {
-    Married,
-    Unmarried
+    MARRIED = "Married",
+    UNMARRIED = "Un Married"
 }

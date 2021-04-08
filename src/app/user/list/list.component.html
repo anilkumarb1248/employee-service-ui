@@ -1,8 +1,6 @@
 
     <div>
         <button class="btn btn-success btn-sm" (click)="addUser()">Add</button>
-        <button class="btn btn-danger btn-sm button-align" (click)="refreshUserList()"
-            [disabled]="users?.length">Refresh</button>
     
         <div *ngIf="!(users?.length > 0) && isLoaded" style="margin-top: 10px;">
             <h4 style="color:red;"> No records found </h4>
@@ -11,7 +9,7 @@
     
             <table class="table table-sm table-bordered table-hover">
                 <tr>
-                    <th>Full Name</th>
+                    <th>Name</th>
                     <th>User Id</th>
                     <th>Mobile Number</th>
                     <th>Email</th>
@@ -21,11 +19,11 @@
     
     
                 <tr *ngFor="let user of users;index as i" [class]="geClass(i)">
-                    <td>{{user.fullName}}</td>
+                    <td>{{user.name}}</td>
                     <td>{{user.userId}}</td>
                     <td>{{user.mobileNumber}}</td>
                     <td>{{user.email}}</td>
-                    <td>{{user.accessTypes}}</td>
+                    <td>{{user.accessTypes | accessTypes}}</td>
 
                     <td style="width: 170px;">
                         <button class="btn btn-info btn-sm" (click)="viewUser(user)">View</button>

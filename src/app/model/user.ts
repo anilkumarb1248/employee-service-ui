@@ -1,7 +1,7 @@
 export class User {
     id: number;
     userId: string;
-    fullName: string;
+    name: string;
     password: string;
     email: string;
     mobileNumber: string;
@@ -9,5 +9,9 @@ export class User {
 }
 
 export enum AccessType {
-    Admin, Add, View, Edit, Delete
+    ADMIN = "Admin",
+    ADD = "Add",
+    VIEW = "View",
+    EDIT = "Edit",
+    DELETE = "Delete"
 }
