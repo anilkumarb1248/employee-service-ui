@@ -43,15 +43,15 @@ export class ListComponent implements OnInit {
   }
 
   viewEmployee(employee: Employee): void {
-    this.router.navigateByUrl("employee/view/" + employee.id);
+    this.router.navigateByUrl("employee/view/" + employee.employeeId);
   }
 
   editEmployee(employee: Employee): void {
-    this.router.navigateByUrl("employee/edit/" + employee.id);
+    this.router.navigateByUrl("employee/edit/" + employee.employeeId);
   }
 
-  deleteEmployee(id: number): void {
-    this.service.deleteEmployee(id).subscribe(
+  deleteEmployee(employee: Employee): void {
+    this.service.deleteEmployee(employee.employeeId).subscribe(
       (data) => {
         if (data.statusCode == "200") {
           this.helperService.createNotification(data.message, NotifyType.SUCCESS);

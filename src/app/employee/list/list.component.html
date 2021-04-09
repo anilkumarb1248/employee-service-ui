@@ -10,7 +10,8 @@
         <table class="table table-sm table-bordered table-hover">
             <tr>
                 <th>Full Name</th>
-                <th>Date of Birth</th>
+                <th>Father Name</th>
+                <th>Mother Name</th>
                 <th>Mobile Number</th>
                 <th>Email</th>
                 <th>Date of Birth</th>
@@ -18,19 +19,18 @@
                 <th>Action</th>
             </tr>
 
-
             <tr *ngFor="let employee of employees;index as i" [class]="geClass(i)">
                 <td>{{employee | fullname}}</td>
-                <td>{{employee.dob | date:short}}</td>
+                <td>{{employee.fatherName}}</td>
+                <td>{{employee.motherName}}</td>
                 <td>{{employee.mobileNumber}}</td>
                 <td>{{employee.email}}</td>
-                <td>{{employee.dob | date:short}}</td>
-                <td>{{employee.dob | age}}</td>
+                <td>{{employee.dateOfBirth | date:short}}</td>
+                <td>{{employee.dateOfBirth | age}}</td>
                 <td style="width: 170px;">
                     <button class="btn btn-info btn-sm" (click)="viewEmployee(employee)">View</button>
                     <button class="btn btn-primary btn-sm button-align" (click)="editEmployee(employee)">Edit</button>
-                    <button class="btn btn-danger btn-sm button-align"
-                        (click)="deleteEmployee(employee.id)">Delete</button>
+                    <button class="btn btn-danger btn-sm button-align" (click)="deleteEmployee(employee)">Delete</button>
                 </td>
             </tr>
         </table>

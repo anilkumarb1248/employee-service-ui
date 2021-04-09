@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NotifyType } from 'src/app/common/notification';
 import { HelperService } from 'src/app/common/services/helper.service';
@@ -34,16 +34,46 @@ export class AddComponent implements OnInit {
       firstName: ["", Validators.required],
       middleName: [""],
       lastName: [""],
+      fatherName: [""],
+      motherName: [""],
+      gurdianName: [""],
       role: ["", Validators.required],
       salary: ["", Validators.required],
-      dob: ["", Validators.required],
+      dateOfBirth: ["", Validators.required],
       gender: ["", Validators.required],
+      maritalStatus: ["", Validators.required],
+      spouseName: ["",],
       mobileNumber: [""],
+      alternateNumber: [""],
       email: [""],
-      address: [""],
-      maritalStatus: ["", Validators.required]
+      addressList: this.formBuilder.array([])
+    });
+
+    this.addAddress();
+  }
+
+  addressList(): FormArray {
+    return this.employeeForm.get("addressList") as FormArray;
+  }
+
+  newAddress(): FormGroup {
+    return this.formBuilder.group({
+      houseNumber: [""],
+      street: [""],
+      city: [""],
+      state: [""],
+      pincode: [""]
     });
   }
+   
+  addAddress() {
+    this.addressList().push(this.newAddress());
+  }
+
+  removeAddress(i:number) {
+    this.addressList().removeAt(i);
+  }
+
 
   addEmployee() {
     this.service.addEmployee(this.employeeForm.value).subscribe(
@@ -54,7 +84,7 @@ export class AddComponent implements OnInit {
 
         } else if (data.statusCode == "409") {
           this.helperService.createNotification(data.errorMessage, NotifyType.WARNING);
-          this.helperService.focusInvalidControl(this.employeeForm,'firstName',this.elementRef);
+          this.helperService.focusInvalidControl(this.employeeForm, 'firstName', this.elementRef);
 
         } else {
           this.helperService.createNotification(data.errorMessage, NotifyType.ERROR);

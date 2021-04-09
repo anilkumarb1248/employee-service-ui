@@ -9,81 +9,196 @@
 
 <form [formGroup]="employeeForm" (ngSubmit)="addEmployee()">
 
-    <div class="form-group">
-        <label for="firstNameInput">First Name<span class="required-asterisk">*</span> </label>
-        <input type="text" class="form-control" id="firstNameInput" placeholder="Enter First Name"
-            formControlName="firstName">
+    <div class="row">
+        <div class="col 4">
+            <div class="form-group">
+                <label for="firstNameInput">First Name<span class="required-asterisk">*</span> </label>
+                <input type="text" class="form-control" id="firstNameInput" placeholder="Enter First Name"
+                    formControlName="firstName">
+            </div>
+        </div>
+        <div class="col 4">
+            <div class="form-group">
+                <label for="middleNameInput">Middle Name</label>
+                <input type="text" class="form-control" id="middleNameInput" placeholder="Enter Middle Name"
+                    formControlName="middleName">
+            </div>
+        </div>
+        <div class="col 4">
+            <div class="form-group">
+                <label for="lastNameInput">Last Name</label>
+                <input type="text" class="form-control" id="lastNameInput" placeholder="Enter Last Name"
+                    formControlName="lastName">
+            </div>
+        </div>
     </div>
-    <div class="form-group">
-        <label for="middleNameInput">Middle Name </label>
-        <input type="text" class="form-control" id="middleNameInput" placeholder="Enter Middle Name"
-            formControlName="middleName">
+
+
+    <div class="row">
+        <div class="col 4">
+            <div class="form-group">
+                <label for="fatherNameInput">Father Name</label>
+                <input type="text" class="form-control" id="fatherNameInput" placeholder="Enter Father Name"
+                    formControlName="fatherName">
+            </div>
+        </div>
+        <div class="col 4">
+            <div class="form-group">
+                <label for="motherNameInput">Mother Name</label>
+                <input type="text" class="form-control" id="motherNameInput" placeholder="Enter Mother Name"
+                    formControlName="motherName">
+            </div>
+        </div>
+        <div class="col 4">
+            <div class="form-group">
+                <label for="gurdianNameInput">Gurdian Name</label>
+                <input type="text" class="form-control" id="gurdianNameInput" placeholder="Enter Gurdian Name"
+                    formControlName="gurdianName">
+            </div>
+        </div>
     </div>
-    <div class="form-group">
-        <label for="lastNameInput">Last Name </label>
-        <input type="text" class="form-control" id="lastNameInput" placeholder="Enter Last Name"
-            formControlName="lastName">
+
+    <div class="row">
+        <div class="col 4">
+
+            <div class="form-group">
+                <label for="roleInput">Role<span class="required-asterisk">*</span></label>
+                <select class="form-control" id="roleInput" formControlName="role">
+                    <option value="" disabled selected hidden> -- Select Role -- </option>
+                    <option value="SE">Software Engineer</option>
+                    <option value="SSE">Senior Software Engineer</option>
+                    <option value="TA">Technology Analyst</option>
+                    <option value="LEAD">Lead</option>
+                    <option value="MANAGER">Manager</option>
+                    <option value="CEO">CEO</option>
+                </select>
+            </div>
+
+        </div>
+        <div class="col 4">
+
+            <div class="form-group">
+                <label for="salaryInput">Salary<span class="required-asterisk">*</span></label>
+                <input type="text" class="form-control" id="salaryInput" placeholder="Enter Salary"
+                    formControlName="salary">
+            </div>
+
+        </div>
+
+        <div class="col 4">
+            <div class="form-group">
+                <label for="dobInput">Date of Birth<span class="required-asterisk">*</span></label>
+                <input type="date" class="form-control" id="dobInput" placeholder="Pick a Date"
+                    formControlName="dateOfBirth">
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col 4">
+
+            <div class="form-group">
+                <label for="genderInput">Gender<span class="required-asterisk">*</span></label>
+                <select class="form-control" id="genderInput" formControlName="gender">
+                    <option value="" disabled selected hidden> -- Select Gender -- </option>
+                    <option value="MALE">Male</option>
+                    <option value="FEMALE">Female</option>
+                    <option value="TRANSGENDER">Transgender</option>
+                </select>
+            </div>
+
+        </div>
+        <div class="col 4">
+
+            <div class="form-group">
+                <label for="maritalStatusInput">Marital Staus<span class="required-asterisk">*</span></label>
+                <select class="form-control" id="maritalStatusInput" formControlName="maritalStatus">
+                    <option value="" disabled selected hidden> -- Select Marital Staus -- </option>
+                    <option value="MARRIED">Married</option>
+                    <option value="UNMARRIED">Unmarried</option>
+                </select>
+            </div>
+
+        </div>
+        <div class="col 4">
+
+            <div class="form-group">
+                <label for="spouseNameInput">Spouse Name </label>
+                <input type="text" class="form-control" id="spouseNameInput" placeholder="Enter Spouse Name"
+                    formControlName="spouseName">
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col 4">
+
+            <div class="form-group">
+                <label for="emailInput">Email </label>
+                <input type="text" class="form-control" id="emailInput" placeholder="Enter Email"
+                    formControlName="email">
+            </div>
+
+        </div>
+        <div class="col 4">
+
+            <div class="form-group">
+                <label for="mobileNumberInput">Mobile Number </label>
+                <input type="text" class="form-control" id="mobileNumberInput" placeholder="Enter Mobile Number"
+                    formControlName="mobileNumber">
+            </div>
+
+        </div>
+        <div class="col 4">
+
+            <div class="form-group">
+                <label for="alternateNumberInput">Alternate Number </label>
+                <input type="text" class="form-control" id="alternateNumberInput" placeholder="Enter Alternate Number"
+                    formControlName="alternateNumber">
+            </div>
+
+        </div>
     </div>
 
     <div class="form-group">
-        <label for="roleInput">Role<span class="required-asterisk">*</span></label>
-        <select class="form-control" id="roleInput" formControlName="role">
-            <option value="" disabled selected hidden> -- Select Role -- </option>
-            <option value="SE">Software Engineer</option>
-            <option value="SSE">Senior Software Engineer</option>
-            <option value="TA">Technology Analyst</option>
-            <option value="LEAD">Lead</option>
-            <option value="MANAGER">Manager</option>
-            <option value="CEO">CEO</option>
-        </select>
+        <label>Address <span class="badge badge-primary"><a (click)="addAddress()">Add</a></span> </label> 
+    </div>
+    <div class="form-group" formArrayName="addressList">
+
+
+        <div class="row" *ngFor="let address of addressList().controls;let i=index" [formGroupName]="i" style="margin-top:5px;">
+            <div class="col">
+                <input type="text" class="form-control form-control-sm" placeholder="Enter House Number"
+                    formControlName="houseNumber">
+            </div>
+            <div class="col">
+                <input type="text" class="form-control form-control-sm" placeholder="Enter Street"
+                    formControlName="street">
+            </div>
+            <div class="col">
+                <input type="text" class="form-control form-control-sm" placeholder="Enter City" formControlName="city">
+            </div>
+            <div class="col">
+                <input type="text" class="form-control form-control-sm" placeholder="Enter State"
+                    formControlName="state">
+            </div>
+            <div class="col">
+                <input type="text" class="form-control form-control-sm" placeholder="Enter Pincode"
+                    formControlName="pincode"> 
+            </div>
+            <div class="col-1">
+                <span class="badge badge-danger"><a (click)="removeAddress(i)">Remove</a></span>
+            </div>
+    
+        </div>
     </div>
 
-    <div class="form-group">
-        <label for="salaryInput">Salary<span class="required-asterisk">*</span></label>
-        <input type="text" class="form-control" id="salaryInput" placeholder="Enter Salary" formControlName="salary">
+    <div class="row justify-content-end" style="margin-top: 15px;margin-right: 30px;">
+        <button type="submit" class="btn btn-primary" [disabled]="!employeeForm.valid">Submit</button>
+        <button type="button" class="btn btn-warning button-align" (click)="resetForm()">Reset</button>
+        <button type="button" class="btn btn-secondary button-align" (click)="navigateToEmployeeList()">Cancel</button>
     </div>
-
-    <div class="form-group">
-        <label for="dobInput">Date of Birth<span class="required-asterisk">*</span></label>
-        <input type="date" class="form-control" id="dobInput" placeholder="Pick a Date" formControlName="dob">
-    </div>
-
-    <div class="form-group">
-        <label for="genderInput">Gender<span class="required-asterisk">*</span></label>
-        <select class="form-control" id="genderInput" formControlName="gender">
-            <option value="" disabled selected hidden> -- Select Gender -- </option>
-            <option value="MALE">Male</option>
-            <option value="FEMALE">Female</option>
-        </select>
-    </div>
-
-    <div class="form-group">
-        <label for="maritalStatusInput">Marital Staus<span class="required-asterisk">*</span></label>
-        <select class="form-control" id="maritalStatusInput" formControlName="maritalStatus">
-            <option value="" disabled selected hidden> -- Select Marital Staus -- </option>
-            <option value="MARRIED">Married</option>
-            <option value="UNMARRIED">Unmarried</option>
-        </select>
-    </div>
-
-    <div class="form-group">
-        <label for="emailInput">Email </label>
-        <input type="text" class="form-control" id="emailInput" placeholder="Enter Email" formControlName="email">
-    </div>
-
-    <div class="form-group">
-        <label for="mobileNumberInput">Mobile Number </label>
-        <input type="text" class="form-control" id="mobileNumberInput" placeholder="Enter Mobile Number"
-            formControlName="mobileNumber">
-    </div>
-
-    <div class="form-group">
-        <label for="addressInput">Address </label>
-        <textarea name="addressInput" rows="4" cols="50" class="form-control" id="addressInput"
-            placeholder="Enter Address" formControlName="address"></textarea>
-    </div>
-
-    <button type="submit" class="btn btn-primary" [disabled]="!employeeForm.valid">Submit</button>
-    <button type="button" class="btn btn-warning button-align" (click)="resetForm()">Reset</button>
-    <button type="button" class="btn btn-secondary button-align" (click)="navigateToEmployeeList()">Cancel</button>
 </form>

@@ -1,8 +1,9 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NotifyType } from 'src/app/common/notification';
 import { HelperService } from 'src/app/common/services/helper.service';
+import { Address } from 'src/app/model/address';
 import { Employee } from 'src/app/model/employee';
 import { EmployeeService } from 'src/app/services/employee.service';
 
@@ -13,7 +14,7 @@ import { EmployeeService } from 'src/app/services/employee.service';
 })
 export class EditComponent implements OnInit {
 
-  id: number;
+  employeeId: number;
   employee: Employee;
   employeeForm: FormGroup;
   isLoaded: boolean = false;
@@ -27,21 +28,21 @@ export class EditComponent implements OnInit {
     private helperService: HelperService
   ) {
     this.activatedRoute.params.subscribe(data => {
-      this.id = data.id;
+      this.employeeId = data.employeeId;
     });
   }
 
   ngOnInit(): void {
-    this.loadEmployeeDetails(this.id);
+    this.loadEmployeeDetails(this.employeeId);
   }
 
-  loadEmployeeDetails(id: number) {
-    if (id) {
-      this.service.getEmployee(id).subscribe(
+  loadEmployeeDetails(employeeId: number) {
+    if (employeeId) {
+      this.service.getEmployee(employeeId).subscribe(
         data => {
+          console.log("***************");
           this.employee = data;
           console.log(JSON.stringify(data));
-          this.isLoaded = true;
           this.createEmployeeForm();
         },
         error => {
@@ -56,20 +57,68 @@ export class EditComponent implements OnInit {
 
   createEmployeeForm() {
     this.employeeForm = this.formBuilder.group({
-      id: [this.employee.id, Validators.required],
+      employeeId: [this.employee.employeeId, Validators.required],
       firstName: [this.employee.firstName, Validators.required],
       middleName: [this.employee.middleName],
       lastName: [this.employee.lastName],
+      fatherName: [this.employee.fatherName],
+      motherName: [this.employee.motherName],
+      gurdianName: [this.employee.gurdianName],
       role: [this.employee.role, Validators.required],
       salary: [this.employee.salary, Validators.required],
-      dob: [this.employee.dob, Validators.required],
+      dateOfBirth: [this.employee.dateOfBirth, Validators.required],
       gender: [this.employee.gender, Validators.required],
       mobileNumber: [this.employee.mobileNumber],
+      alternateNumber: [this.employee.alternateNumber],
       email: [this.employee.email],
-      address: [this.employee.address],
-      maritalStatus: [this.employee.maritalStatus, Validators.required]
+      maritalStatus: [this.employee.maritalStatus, Validators.required],
+      spouseName: [this.employee.spouseName],
+      addressList: this.formBuilder.array([])
+    });
+
+    this.populateAddressList(this.employee.addressList);
+  }
+
+  populateAddressList(addressList: Address[]) {
+    if (addressList) {
+      addressList.forEach((address, index) => {
+        this.addressList().push(
+          this.formBuilder.group({
+            houseNumber: [address.houseNumber],
+            street: [address.street],
+            city: [address.city],
+            state: [address.state],
+            pincode: [address.pincode]
+          })
+        );
+      });
+    }
+    this.isLoaded = true;
+  }
+
+  addressList(): FormArray {
+    return this.employeeForm.get("addressList") as FormArray;
+  }
+
+  newAddress(): FormGroup {
+    return this.formBuilder.group({
+      houseNumber: [""],
+      street: [""],
+      city: [""],
+      state: [""],
+      pincode: [""]
     });
   }
+
+  addAddress() {
+    this.addressList().push(this.newAddress());
+  }
+
+  removeAddress(i: number) {
+    this.addressList().removeAt(i);
+  }
+
+
   updateEmployee() {
     this.service.updateEmployee(this.employeeForm.value).subscribe(
       data => {
@@ -82,7 +131,7 @@ export class EditComponent implements OnInit {
 
         } else if (data.statusCode == "409") {
           this.helperService.createNotification(data.errorMessage, NotifyType.WARNING);
-          this.helperService.focusInvalidControl(this.employeeForm,'firstName',this.elementRef);
+          this.helperService.focusInvalidControl(this.employeeForm, 'firstName', this.elementRef);
 
         } else {
           this.helperService.createNotification(data.errorMessage, NotifyType.ERROR);

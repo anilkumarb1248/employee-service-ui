@@ -1,17 +1,24 @@
+import { Address } from "./address";
+
 export class Employee {
 
-    id: number;
+    employeeId: number;
     firstName: string;
     middleName: string;
     lastName: string;
+    fatherName: string;
+    motherName: string;
+    gurdianName: string;
     role: Role;
     salary: number;
-    dob: Date;
+    dateOfBirth: Date;
     gender: Gender;
     mobileNumber: string;
+    alternateNumber: string;
     email: string;
-    address: string;
     maritalStatus: MaritalStatus;
+    spouseName: string;
+    addressList:Address[];
 
     constructor() { }
 
@@ -27,7 +34,8 @@ export enum Role {
 }
 export enum Gender {
     MALE = "Male",
-    FEMALE = "Female"
+    FEMALE = "Female",
+    TRANSGENDER = "Transgender"
 }
 
 export enum MaritalStatus {

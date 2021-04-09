@@ -18,7 +18,7 @@ export class EmployeeService {
   }
 
   getEmployeeList(): Observable<Employee[]> {
-    return this.http.get<Employee[]>(this.empUrl + "employees");
+    return this.http.get<Employee[]>(this.empUrl + "list");
   }
 
   /* If it fails first time, it will retry 3 times as mentioned in the pipe retry() method*/

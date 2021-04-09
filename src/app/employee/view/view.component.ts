@@ -10,7 +10,7 @@ import { EmployeeService } from 'src/app/services/employee.service';
 })
 export class ViewComponent implements OnInit {
  
-  id: number;
+  employeeId: number;
   employee: Employee;
   isLoaded: boolean = false;
 
@@ -25,17 +25,17 @@ export class ViewComponent implements OnInit {
     private router: Router
   ) {
     this.activatedRoute.params.subscribe(data => {
-      this.id = data.id;
+      this.employeeId = data.employeeId;
     });
   }
 
   ngOnInit(): void {
-    this.loadEmployeeDetails(this.id);
+    this.loadEmployeeDetails(this.employeeId);
   }
 
-  loadEmployeeDetails(id: number) {
-    if (id) {
-      this.service.getEmployee(id).subscribe(
+  loadEmployeeDetails(employeeId: number) {
+    if (employeeId) {
+      this.service.getEmployee(employeeId).subscribe(
         data => {
           this.employee = data;
           this.isLoaded = true;
