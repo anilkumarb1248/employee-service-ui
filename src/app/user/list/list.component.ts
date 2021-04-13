@@ -50,8 +50,8 @@ export class ListComponent implements OnInit {
     this.router.navigateByUrl("user/edit/" + user.id);
   }
 
-  deleteUser(id: number): void {
-    this.service.deleteUser(id).subscribe(
+  deleteUser(user: User): void {
+    this.service.deleteUser(user.id).subscribe(
       (data) => {
         if (data.statusCode == "200") {
           this.helperService.createNotification(data.message, NotifyType.SUCCESS);

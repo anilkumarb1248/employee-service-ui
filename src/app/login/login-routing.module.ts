@@ -8,15 +8,21 @@ import { PageNotFoundComponent } from '../common/page-not-found/page-not-found.c
 import { LogoutComponent } from './logout/logout.component';
 
 const routes: Routes = [
-  {
-    path: '', children: [
-      { path: '', redirectTo: 'sign-in', pathMatch: 'full'},
-      { path: 'sign-in', component: LoginComponent },
-      { path: 'sign-up', component: SignUpComponent },
-      { path: 'forgot', component: ForgotComponent },
-      { path: 'logout', component: LogoutComponent }
-    ]
-  },
+
+  { path: '', component: LoginComponent },
+  { path: 'sign-in', component: LoginComponent },
+  { path: 'sign-up', component: SignUpComponent },
+  { path: 'forgot', component: ForgotComponent },
+  { path: 'logout', component: LogoutComponent },
+  // {
+  //   path: '', children: [
+  //     { path: '', redirectTo: 'sign-in', pathMatch: 'full'},
+  //     { path: 'sign-in', component: LoginComponent },
+  //     { path: 'sign-up', component: SignUpComponent },
+  //     { path: 'forgot', component: ForgotComponent },
+  //     { path: 'logout', component: LogoutComponent }
+  //   ]
+  // },
   { path: '**', component: PageNotFoundComponent }
 ];
 

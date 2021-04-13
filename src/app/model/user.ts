@@ -1,17 +1,17 @@
 export class User {
     id: number;
-    userId: string;
-    name: string;
+    userName: string;
     password: string;
     email: string;
     mobileNumber: string;
-    accessTypes: AccessType[];
+    userRole:UserRole;
+    active:boolean = true;
+    accountExpired:boolean = false;
+    accountLocked:boolean = false;
+    credentialsExpired:boolean = false;
 }
 
-export enum AccessType {
+export enum UserRole {
     ADMIN = "Admin",
-    ADD = "Add",
-    VIEW = "View",
-    EDIT = "Edit",
-    DELETE = "Delete"
+    USER = "User",
 }

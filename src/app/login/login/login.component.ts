@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
 
   createLoginForm() {
     this.loginForm = this.formBuilder.group({
-      userId: ["", Validators.required],
+      userName: ["", Validators.required],
       password: ["", Validators.required],
       keepLogin: [true],
     });
@@ -37,10 +37,12 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
+    // this.loginService.authenticateUserUsingSpringSecurity(this.loginForm.value);
+
     this.loginService.authenticateUser(this.loginForm.value).subscribe(
       data => {
         if (data.statusCode == "200") {
-          this.userService.getUserByUserId(this.loginForm.value.userId).subscribe(
+          this.userService.getUserByUserName(this.loginForm.value.userName).subscribe(
             userData => {
               this.loginService.setLoggedInUser(userData);
 

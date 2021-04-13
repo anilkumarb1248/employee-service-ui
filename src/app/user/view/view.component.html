@@ -1,4 +1,3 @@
-
 <div class="row">
     <div class="col-3">
         <h4>View User Details</h4>
@@ -9,16 +8,12 @@
 </div>
 
 <div *ngIf="isLoaded" style="width: 500px;">
-    <h5 style="color:blue;"> {{user.name}} Details:</h5>
+    <h5 style="color:blue;"> {{user.userName}} Details:</h5>
 
     <table class="table table-bordered table-sm">
         <tr class="table-info">
-            <td><b>Name </b></td>
-            <td>{{user.name}}</td>
-        </tr>
-        <tr class="table-info">
-            <td><b>User Id </b></td>
-            <td>{{user.userId}}</td>
+            <td><b>User Name </b></td>
+            <td>{{user.userName}}</td>
         </tr>
         <tr class="table-info">
             <td><b>Email </b></td>
@@ -29,8 +24,8 @@
             <td>{{user.mobileNumber}}</td>
         </tr>
         <tr class="table-info">
-            <td><b>Access Types </b></td>
-            <td>{{user.accessTypes | accessTypes}}</td>
+            <td><b>User Role </b></td>
+            <td>{{user.userRole }}</td>
         </tr>
     </table>
 </div>

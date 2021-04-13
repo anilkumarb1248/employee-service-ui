@@ -12,14 +12,9 @@
 
     <form [formGroup]="userForm" (ngSubmit)="addUser()">
         <div class="form-group">
-            <label for="nameInput">Name<span class="required-asterisk">*</span> </label>
-            <input type="text" class="form-control" id="nameInput" placeholder="Enter Name"
-                formControlName="name">
-        </div>
-        <div class="form-group">
-            <label for="userIdInput">User Id<span class="required-asterisk">*</span> </label>
-            <input type="text" class="form-control" id="userIdInput" placeholder="Enter User Id"
-                formControlName="userId">
+            <label for="userNameInput">User Name<span class="required-asterisk">*</span> </label>
+            <input type="text" class="form-control" id="userNameInput" placeholder="Enter User Name"
+                formControlName="userName">
         </div>
         <div class="form-group">
             <label for="passwordInput">Password<span class="required-asterisk">*</span> </label>
@@ -43,17 +38,17 @@
             <input type="text" class="form-control" id="emailInput" placeholder="Enter Email" formControlName="email">
         </div>
 
-
         <div class="form-group">
-            <label for="accessTypesInput">Access Types</label>
-            <select class="form-control" id="accessTypesInput" formControlName="accessTypes" multiple="multiple">
-                <option value="" disabled selected hidden> -- Select Access Type -- </option>
-                <option value="ADMIN">Admin</option>
-                <option value="ADD">Add</option>
-                <option value="VIEW">View</option>
-                <option value="EDIT">Edit</option>
-                <option value="DELETE">Delete</option>
-            </select>
+            <label for="userRole">User Role</label>
+            <div>
+                <input id="Admin" type="radio" value="ADMIN" name="userRole" formControlName="userRole">
+                <label for="Admin">Admin</label>
+            </div>
+
+            <div>
+                <input id="User" type="radio" value="USER" name="userRole" formControlName="userRole" checked>
+                <label for="User">User</label>
+            </div>
         </div>
 
         <button type="submit" class="btn btn-primary" [disabled]="!userForm.valid">Submit</button>

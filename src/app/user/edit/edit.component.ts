@@ -57,13 +57,12 @@ export class EditComponent implements OnInit {
   createUserForm() {
     this.userForm = this.formBuilder.group({
       id: [this.user.id],
-      userId: [this.user.userId, Validators.required],
-      name: [this.user.name, Validators.required],
+      userName: [this.user.userName, Validators.required],
       password: [this.user.password, Validators.required],
       confirmPassword: [this.user.password, Validators.required],
       email: [this.user.email],
       mobileNumber: [this.user.mobileNumber],
-      accessTypes: [this.user.accessTypes]
+      userRole: [this.user.userRole]
     });
   }
 

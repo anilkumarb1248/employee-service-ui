@@ -24,9 +24,10 @@ export class UserService {
     return this.http.get<User>(this.userUrl + "get/" + id);
   }
 
-  getUserByUserId(userId: string): Observable<User> {
-    return this.http.get<User>(this.userUrl + "getUserByUserId/" + userId);
+  getUserByUserName(userName: string): Observable<User> {
+    return this.http.get<User>(this.userUrl + "getUserByUserName/" + userName);
   }
+
 
   addUser(user: User): Observable<ResponseStatus> {
     return this.http.post<ResponseStatus>(this.userUrl + "add", user);
@@ -39,6 +40,10 @@ export class UserService {
 
   deleteUser(id: number): Observable<ResponseStatus> {
     return this.http.delete<ResponseStatus>(this.userUrl + "delete/" + id);
+  }
+
+  deleteUserByUserName(userName: string): Observable<ResponseStatus> {
+    return this.http.delete<ResponseStatus>(this.userUrl + "deleteUserByUserName/" + userName);
   }
 
 }

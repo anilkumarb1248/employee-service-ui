@@ -30,13 +30,12 @@ export class AddComponent implements OnInit {
 
   createUserForm() {
     this.userForm = this.formBuilder.group({
-      userId: ["", Validators.required],
-      name: ["", Validators.required],
+      userName: ["", Validators.required],
       password: ["", Validators.required],
       confirmPassword: ["", Validators.required],
       email: [""],
       mobileNumber: [""],
-      accessTypes: []
+      userRole: [""],
     });
   }
 

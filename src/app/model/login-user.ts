@@ -1,5 +1,5 @@
 export class LoginUser {
-    userId: string;
+    userName: string;
     password: string;
     keepLogin: boolean = false;
 }
