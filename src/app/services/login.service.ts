@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AppConstants } from '../app-constants';
+import { SessionDetails } from '../common/session/session-details';
 import { LoginUser } from '../model/login-user';
 import { ResponseStatus } from '../model/response-status';
 import { User } from '../model/user';
@@ -19,7 +20,7 @@ export class LoginService {
   private loginUrl: string;
 
   constructor(private http: HttpClient, private appConstants: AppConstants) {
-    this.loginUrl = appConstants.BASE_URL + "login/"
+    this.loginUrl = this.appConstants.BASE_URL;
   }
 
   setLoggedInUser(user: User): void {
@@ -48,25 +49,53 @@ export class LoginService {
     return this.userLoggedInObservable;
   }
 
-  authenticateUser(loginUser: LoginUser): Observable<ResponseStatus> {
-    return this.http.post<ResponseStatus>(this.loginUrl + "authenticate", loginUser);
+  authenticateUserByLoginController(loginUser: LoginUser): Observable<ResponseStatus> {
+    return this.http.post<ResponseStatus>(this.loginUrl + "login", loginUser);
   }
 
-  authenticateUserUsingSpringSecurity(loginUser: LoginUser) {
-    console.log("Successfully logged in");
-
-    return this.http.post<ResponseStatus>(this.loginUrl + "authenticate", loginUser);
-    // return this.http.post<ResponseStatus>("http://localhost:2021/EmployeeManagement/login/authenticate", loginUser);
-
-    // let basicAuthToken = 'Basic ' + window.btoa(loginUser.userName + ":" + loginUser.password);
-
-    // return this.http.post(`http://localhost:2021/EmployeeManagement/login/authenticate`,loginUser,
-    // { headers: { authorization: basicAuthToken } }).pipe(map((res) => {
-    //   console.log("Successfully logged in")
-    //   // this.username = username;
-    //   // this.password = password;
-    //   // this.registerSuccessfulLogin(username, password);
-    // }));
+  authenticateUserByJWT(loginUser: LoginUser): Observable<any> {
+    this.loginUrl = this.appConstants.BASE_URL + "authenticate"
+    let userDetails = {
+      username: loginUser.userName,
+      password: loginUser.password
+    }
+    return this.http.post<any>(this.loginUrl, userDetails);
   }
 
+  // Session Details
+  setSessionData(token: string, loggedInUserData: User, keepLogin: boolean) {
+    let sd = sessionStorage.getItem("sessionDetails");
+    let sessionDetails;
+    if (!sd) {
+      sessionDetails = new SessionDetails();
+    } else {
+      sessionDetails = JSON.parse(sd);
+    }
+
+    if (loggedInUserData) {
+      sessionDetails.loggedInUserData = loggedInUserData;
+    }
+
+    if (token) {
+      sessionDetails.token = token;
+    }
+    if (keepLogin) {
+      sessionDetails.keepLogin = keepLogin;
+    }
+
+    sessionStorage.setItem("sessionDetails", JSON.stringify(sessionDetails));
+  }
+
+  getSessionData(): SessionDetails {
+    let sd = sessionStorage.getItem("sessionDetails");
+    return sd ? JSON.parse(sd) : {};
+    // if(!sd){
+    //   return new SessionDetails();
+    // }
+    // return JSON.parse(sd);
+  }
+
+  clearSession() {
+    sessionStorage.setItem("sessionDetails", "");
+  }
 }

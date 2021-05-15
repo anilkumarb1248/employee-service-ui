@@ -12,9 +12,14 @@ export class AppComponent implements OnInit {
   isLoaded: boolean = false;
 
   constructor(private loginService: LoginService, private userService: UserService) {
-    if (localStorage.getItem('loginData')) {
-      const userData = JSON.parse(localStorage.getItem('userData'));
-      this.loginService.setLoggedInUser(userData);
+    let sd = sessionStorage.getItem("sessionDetails");
+    if (sd) {
+      let sessionDetails = JSON.parse(sd);
+      if(sessionDetails.keepLogin){
+        this.loginService.setLoggedInUser(sessionDetails.loggedInUserData);
+      }else{
+        loginService.clearSession();
+      }
     }
   }
   ngOnInit(): void {

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AppConstants } from '../app-constants';
@@ -25,6 +25,8 @@ export class UserService {
   }
 
   getUserByUserName(userName: string): Observable<User> {
+    // const headers = new HttpHeaders({ Authorization: 'Basic ' + btoa('admin:admin') });
+    // return this.http.get<User>(this.userUrl + "getUserByUserName/" + userName,{headers});
     return this.http.get<User>(this.userUrl + "getUserByUserName/" + userName);
   }
 

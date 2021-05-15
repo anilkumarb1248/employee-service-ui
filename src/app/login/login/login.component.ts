@@ -4,6 +4,8 @@ import { UserService } from 'src/app/services/user.service';
 import { LoginService } from 'src/app/services/login.service';
 import { User } from 'src/app/model/user';
 import { Router } from '@angular/router';
+import { AppConstants } from 'src/app/app-constants';
+import { LoginUser } from 'src/app/model/login-user';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +21,8 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private loginService: LoginService,
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private appConstants: AppConstants
   ) {
     this.createLoginForm();
   }
@@ -37,26 +40,20 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    // this.loginService.authenticateUserUsingSpringSecurity(this.loginForm.value);
+    this.loginService.clearSession();
 
-    this.loginService.authenticateUser(this.loginForm.value).subscribe(
+    if (this.appConstants.AUTHENTICATION_TYPE == "JWT_Token") {
+      this.authenticateUserByJWT(this.loginForm.value);
+    } else {
+      this.authenticateUserByLoginController(this.loginForm.value);
+    }
+  }
+
+  authenticateUserByLoginController(loginUser: LoginUser) {
+    this.loginService.authenticateUserByLoginController(loginUser).subscribe(
       data => {
         if (data.statusCode == "200") {
-          this.userService.getUserByUserName(this.loginForm.value.userName).subscribe(
-            userData => {
-              this.loginService.setLoggedInUser(userData);
-
-              if (this.loginForm.value.keepLogin) {
-                localStorage.setItem('loginData', JSON.stringify(this.loginForm.value));
-                localStorage.setItem('userData', JSON.stringify(userData));
-              }
-
-              this.router.navigateByUrl("/home");
-            },
-            error => {
-              console.log("Error occured while getting the authenticated user");
-            }
-          );
+          this.getLoggedInUserDetails(loginUser.userName);
         } else {
           alert(data.errorMessage);
         }
@@ -67,4 +64,40 @@ export class LoginComponent implements OnInit {
     );
   }
 
+  authenticateUserByJWT(loginUser: LoginUser) {
+    this.loginService.authenticateUserByJWT(loginUser).subscribe(
+      data => {
+        console.log(data);
+        if (data.statusCode == 400) {
+          alert(data.errorMessage);
+        }
+        if(data.token){
+          this.loginService.setSessionData("Bearer " + data.token, null, null);
+          this.getLoggedInUserDetails(loginUser.userName);
+        }
+      },
+      error => {
+        console.log("Error occured while authenticating the user");
+      }
+    );
+  }
+
+  getLoggedInUserDetails(userName: string) {
+    this.userService.getUserByUserName(userName).subscribe(
+      userData => {
+        userData.password = "**********";
+        this.loginService.setLoggedInUser(userData);
+
+        if (this.loginForm.value.keepLogin) {
+          this.loginService.setSessionData(null, userData, true);
+        }
+        this.router.navigateByUrl("/home");
+      },
+      error => {
+        console.log(error);
+        console.log("Error occured while getting the authenticated user");
+      }
+    );
+  }
 }
+

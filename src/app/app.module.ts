@@ -9,10 +9,10 @@ import { AppComponent } from './app.component';
 import { PageNotFoundComponent } from './common/page-not-found/page-not-found.component';
 import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './common/header/header.component';
-import { LoggingInterceptor } from './interceptors/logging.interceptor';
 import { InteractionModule } from './components-interaction/interaction.module';
 import { ToastrModule } from 'ngx-toastr';
 import { FooterComponent } from './common/footer/footer.component';
+import { HttpRequestInterceptor } from './interceptors/http-request.interceptor';
 
 @NgModule({
   declarations: [
@@ -37,7 +37,7 @@ import { FooterComponent } from './common/footer/footer.component';
     }) // ToastrModule added
   ],
   providers:[
-    {provide:HTTP_INTERCEPTORS, useClass:LoggingInterceptor, multi:true}
+    {provide:HTTP_INTERCEPTORS, useClass:HttpRequestInterceptor, multi:true}
   ],
   bootstrap: [AppComponent]
 })
