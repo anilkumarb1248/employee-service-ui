@@ -1,9 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Employee } from '../model/employee';
 import { ResponseStatus } from '../model/response-status';
-import { retry } from 'rxjs/operators';
 import { AppConstants } from '../app-constants';
 
 @Injectable({
@@ -19,6 +18,18 @@ export class EmployeeService {
 
   getEmployeeList(): Observable<Employee[]> {
     return this.http.get<Employee[]>(this.empUrl + "list");
+  }
+
+  getEmployeesByPagination(pageNumber:number,pageSize:number, sortOrder:string, sortingBy:string): Observable<Employee[]> {
+
+    const params = new HttpParams()
+    .set('pageNumber', pageNumber.toString())
+    .set('pageSize', pageSize.toString())
+    .set('sortOrder', sortOrder)
+    .set('sortingBy', sortingBy);
+    // console.log(params.toString());
+
+    return this.http.get<Employee[]>(this.empUrl + "getEmployeesByPagination",{params});
   }
 
   /* If it fails first time, it will retry 3 times as mentioned in the pipe retry() method*/
@@ -42,6 +53,14 @@ export class EmployeeService {
 
   deleteEmployee(id: number): Observable<ResponseStatus> {
     return this.http.delete<ResponseStatus>(this.empUrl + "delete/" + id);
+  }
+
+  deleteAll(): Observable<ResponseStatus> {
+    return this.http.delete<ResponseStatus>(this.empUrl + "deleteAll/");
+  }
+
+  addDummyData(): Observable<boolean> {
+    return this.http.get<boolean>(this.empUrl + "dummyData/");
   }
 
 }

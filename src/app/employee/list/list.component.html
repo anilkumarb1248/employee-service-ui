@@ -1,9 +1,24 @@
 <!-- <div style="margin-top: 10px;"> -->
 <div>
-    <button class="btn btn-success btn-sm" (click)="addEmployee()">Add</button>
-
-    <div *ngIf="!(employees?.length > 0) && isLoaded" style="margin-top: 10px;">
-        <h4 style="color:red;"> No records found </h4>
+    <div class="bg-light " style="height: 35px;">
+        <div class="float-left">
+            <button class="btn btn-success btn-sm" (click)="addEmployee()">Add</button>
+            <button class="btn btn-danger btn-sm" style="margin-left: 10px;" (click)="deleteAll()">Delete All</button>
+            <button *ngIf="!enablePaginationFlag" class="btn btn-dark btn-sm" style="margin-left: 10px;" (click)="enablePagination(true)">Enable Pagination</button>
+            <button *ngIf="enablePaginationFlag" class="btn btn-dark btn-sm" style="margin-left: 10px;" (click)="enablePagination(false)">Disable Pagination</button>
+        </div>
+        <div class="float-right" style="margin-right: 20px;">
+            <button class="btn btn-primary btn-sm" style="margin-right: 10px;" (click)="importExcel()">Import
+                Excel</button>
+            <button class="btn btn-info btn-sm" (click)="exportExcel()">Export Excel</button>
+        </div>
+    </div>
+</div>
+<div>
+    <div *ngIf="!(employees?.length > 0) && isLoaded" style="position: fixed;margin-top: 10%;margin-left: 40%;">
+        <!-- <h4 style="color:red;"> No records found </h4> <span> <small><button class="btn btn-primary btn-sm" (click)="addDummyData()">Add Dummy Data</button></small></span> -->
+        <h4 style="color:red;">No records found <span style="font-size: 11px;"><a href="#" data-toggle="tooltip"
+                    data-placement="top" title="Add Dummy Data" (click)="addDummyData()">(Add)</a></span></h4>
     </div>
     <div *ngIf="(employees?.length > 0)" style="margin-top: 10px;">
 
@@ -12,6 +27,7 @@
                 <th>Full Name</th>
                 <th>Father Name</th>
                 <th>Mother Name</th>
+                <th>Salary</th>
                 <th>Mobile Number</th>
                 <th>Email</th>
                 <th>Date of Birth</th>
@@ -23,6 +39,7 @@
                 <td>{{employee | fullname}}</td>
                 <td>{{employee.fatherName}}</td>
                 <td>{{employee.motherName}}</td>
+                <td>{{employee.salary}}</td>
                 <td>{{employee.mobileNumber}}</td>
                 <td>{{employee.email}}</td>
                 <td>{{employee.dateOfBirth | date:short}}</td>
@@ -30,10 +47,68 @@
                 <td style="width: 170px;">
                     <button class="btn btn-info btn-sm" (click)="viewEmployee(employee)">View</button>
                     <button class="btn btn-primary btn-sm button-align" (click)="editEmployee(employee)">Edit</button>
-                    <button class="btn btn-danger btn-sm button-align" (click)="deleteEmployee(employee)">Delete</button>
+                    <button class="btn btn-danger btn-sm button-align"
+                        (click)="deleteEmployee(employee)">Delete</button>
                 </td>
             </tr>
         </table>
+
+        <nav *ngIf="enablePaginationFlag" aria-label="Employees pagindation">
+            <ul class="pagination justify-content-end">
+
+                <li class="page-item" style="margin-right: 10px;">
+                    <div class="form-group">
+                        <label for="sortingByInput">Sort By:&nbsp;&nbsp; </label>
+                        <select [(ngModel)]="sortingBy" id="sortingByInput" (change)="onSortingChange($event)" style="height:30px;">
+                            <option *ngFor="let sortEle of sortingByElements;" value="{{sortEle.key}}">{{sortEle.value}}</option>
+                        </select>
+                    </div>
+                </li>
+
+                <li class="page-item" style="margin-right: 10px;">
+                    <div class="form-group">
+                        <label for="orderInput">Order:&nbsp;&nbsp; </label>
+                        <select [(ngModel)]="sortOrder" id="orderInput" (change)="onOrderChange($event)" style="height:30px;">
+                            <option value="ASC" selected>Ascending</option>
+                            <option value="DESC">Descending</option>
+                        </select>
+                    </div>
+                </li>
+                <li class="page-item" style="margin-right: 10px;">
+
+                    <div class="form-group">
+                        <label for="pageSizeInput">Size:&nbsp;&nbsp; </label>
+                        <select [(ngModel)]="pageSize" id="pageSizeInput" (change)="onPageSizeChange($event)" style="height:30px;">
+                            <option value="5" selected>5</option>
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
+                    </div>
+
+                </li>
+
+                <li class="page-item">
+                    <button class="btn btn-outline-dark btn-sm" id="previousPageBtn" [disabled]="previousBtnDisableFlag"
+                        (click)="previousPage()">Previous</button>
+                </li>
+
+                <li class="page-item">
+                    <button class="btn btn-outline-dark btn-sm" id="nextPageBtn" [disabled]="nextBtnDisableFlag" (click)="nextPage()">Next</button>
+                </li>
+
+                <!-- <li class="page-item disabled" id="previousPageBtn">
+                <a class="page-link" (click)="previousPage()" tabindex="-1">Previous</a>
+              </li>
+               <li class="page-item"><a class="page-link" href="#">1</a></li>
+              <li class="page-item"><a class="page-link" href="#">2</a></li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li> 
+              <li class="page-item" id="nextPageBtn">
+                <a class="page-link" (click)="nextPage()">Next</a>
+              </li> -->
+            </ul>
+        </nav>
 
     </div>
 </div>
