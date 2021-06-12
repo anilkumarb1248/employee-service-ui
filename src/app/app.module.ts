@@ -9,7 +9,6 @@ import { AppComponent } from './app.component';
 import { PageNotFoundComponent } from './common/page-not-found/page-not-found.component';
 import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './common/header/header.component';
-import { InteractionModule } from './components-interaction/interaction.module';
 import { ToastrModule } from 'ngx-toastr';
 import { FooterComponent } from './common/footer/footer.component';
 import { HttpRequestInterceptor } from './interceptors/http-request.interceptor';
@@ -28,7 +27,6 @@ import { HttpRequestInterceptor } from './interceptors/http-request.interceptor'
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    InteractionModule,
     BrowserAnimationsModule, // required animations module for Toastr
     ToastrModule.forRoot({
       timeOut:5000,

@@ -25,3 +25,11 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class EmployeeRoutingModule { }
+
+
+export const employeeRoutingComponents=[
+  ListComponent,
+  AddComponent,
+  ViewComponent,
+  EditComponent
+];

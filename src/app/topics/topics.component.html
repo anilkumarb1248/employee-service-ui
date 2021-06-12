@@ -1,0 +1,16 @@
+<!-- <div class="bg-dark" style="height: 40px;position: fixed;width:99%;z-index: 100;"> -->
+<div class="bg-info" style="position: fixed;z-index: 100;margin-top: -10px;">
+    <nav class="nav nav-tabs">
+        <a class="nav-link text-light" routerLinkActive="activebutton"
+            [routerLink]="['/topics/topicsHome', {outlets: {'topicsOutlet': ['interaction']}}]">Component
+            Interaction</a>
+        <a class="nav-link text-light" routerLinkActive="activebutton"
+            [routerLink]="['/topics/topicsHome', {outlets: {'topicsOutlet': ['viewchild-demo']}}]">ViewChild Demo</a>
+       
+            <a class="nav-link text-light" routerLinkActive="activebutton"
+            [routerLink]="['/topics/topicsHome', {outlets: {'topicsOutlet': ['host-binding-listner']}}]">HostBinding & Listner</a>
+    </nav>
+</div>
+<div style="margin-top: 41px;position: relative;">
+    <router-outlet name="topicsOutlet"></router-outlet>
+</div>

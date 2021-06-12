@@ -1,0 +1,15 @@
+<p>viewchild-demo-parent </p>
+
+<input #inputTextTemplate type="text"><br>
+<br><br>
+
+<input #inputTemplateRef type="text"><br>
+<input #inputTemplateRef type="text"><br>
+<input #inputTemplateRef type="text"><br>
+
+<br><br>
+<button class="btn btn-warning" (click)="changeChildTitle()"> Change Child Title from Parent </button>
+
+<!-- <app-viewchild-demo-child></app-viewchild-demo-child> -->
+
+<app-viewchild-demo-child #child></app-viewchild-demo-child>
